@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: mlapp
-        image: sreedocker123/mlproductbuy:v1
+        image: sgnikhil/machine_learning_deployment_using_docker:v1
         ports:
         - containerPort: 5000

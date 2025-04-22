@@ -1,48 +1,20 @@
-# Step 1: Use slim Python image
-FROM python:3.10-slim
+# Use a Python-based image instead of Anaconda
+FROM python:3.8-slim
 
-# Step 2: Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-
-# Step 3: Create and set working directory
-WORKDIR /usr/ML/app
-
-# Step 4: Copy all project files to the container
+#Copy the current folder structure and content to docker folder
 COPY . /usr/ML/app
 
-# Step 5: Install system dependencies (if needed)
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    && rm -rf /var/lib/apt/lists/*
-
-# Step 6: Upgrade pip and install required Python packages
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
-
-# Step 7: Expose port 5000 for Flask app
+#Expose the port within docker 
 EXPOSE 5000
+
+#Set current working directory
+WORKDIR /usr/ML/app
+
+#Install the required libraries
+RUN pip install -r requirements.txt
 
 # Step 8: Command to run the Flask app
 CMD ["python", "flask_api.py"]
-
-# # Use a Python-based image instead of Anaconda
-# FROM python:3.8-slim
-
-# #Copy the current folder structure and content to docker folder
-# COPY . /usr/ML/app
-
-# #Expose the port within docker 
-# EXPOSE 5000
-
-# #Set current working directory
-# WORKDIR /usr/ML/app
-
-# #Install the required libraries
-# RUN pip install -r requirements.txt
-
-# #container start up command
-# CMD python flask_api.py
 
 # # Use a Python-based image instead of Anaconda
 # FROM python:3.8-slim

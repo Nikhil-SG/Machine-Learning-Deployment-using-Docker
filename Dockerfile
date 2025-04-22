@@ -1,40 +1,27 @@
-# Use a Python-based image instead of Anaconda
+# Use a minimal Python image
+
 FROM python:3.8-slim
+ 
+# Set a working directory in the container
 
-#Copy the current folder structure and content to docker folder
-COPY . /usr/ML/app
-
-#Expose the port within docker 
-EXPOSE 5000
-
-#Set current working directory
 WORKDIR /usr/ML/app
+ 
+# Copy everything into the container
 
-#Install the required libraries
-RUN pip install -r requirements.txt
+COPY . .
+ 
+# Install dependencies
 
-# Step 8: Command to run the Flask app
-CMD ["python", "flask_api.py"]
+RUN pip install --no-cache-dir -r requirements.txt
+ 
+# Expose the Flask port
 
-# # Use a Python-based image instead of Anaconda
-# FROM python:3.8-slim
+EXPOSE 5000
+ 
+# Train the model before serving (optional: comment out if already trained and logreg.pkl exists)
 
-# # Set environment variables for Flask
-# ENV FLASK_APP=flask_api.py
-# ENV FLASK_ENV=development
+RUN python ml_train.py
+ 
+# Start the Flask web API
 
-# # Copy the current folder structure and content to the docker folder
-# COPY . /usr/ML/app
-
-# # Set current working directory
-# WORKDIR /usr/ML/app
-
-# # Expose the port within docker
-# EXPOSE 5000
-
-# # Install the required libraries
-# RUN pip install -r requirements.txt
-
-# # Container startup command
-# CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]
-
+CMD ["python", "flask_web_api.py"]

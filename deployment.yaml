@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: mlapp
-        image: sgnikhil/mymlapp:v3
+        image: sgnikhil/mymlapps:v3
         ports:
         - containerPort: 5000

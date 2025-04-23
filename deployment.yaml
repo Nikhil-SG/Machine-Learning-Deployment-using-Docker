@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: mlapp
-        image: sgnikhil/machine_learning_deployment_using_docker:v1
+        image: sgnikhil/mymlapp:v3
         ports:
         - containerPort: 5000
